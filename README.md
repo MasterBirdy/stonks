@@ -1,5 +1,6 @@
 # stonks
 
+Simple app based on Maximilian Schwarzmüller's Vue course .
 ## Project setup
 ```
 npm install
