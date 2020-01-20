@@ -43,16 +43,18 @@ export const store = new VueX.Store({
         },
         sellStock: (state, payload) => {
             let sellLoad = 0;
-            state.yourStocks[payload.stockName] < payload.sellLoad
-                ? (sellLoad = state.yourStocks[payload.stockName])
-                : (sellLoad = payload.sellLoad);
-            console.log(sellLoad);
-            const value = state.stocks[payload.stockName] * sellLoad;
-            state.yourStocks[payload.stockName] -= sellLoad;
-            if (state.yourStocks[payload.stockName] === 0) {
-                delete state.yourStocks[payload.stockName];
+            if (state.yourStocks.hasOwnProperty(payload.stockName)) {
+                state.yourStocks[payload.stockName] < payload.sellLoad
+                    ? (sellLoad = state.yourStocks[payload.stockName])
+                    : (sellLoad = payload.sellLoad);
+                console.log(sellLoad);
+                const value = state.stocks[payload.stockName] * sellLoad;
+                state.yourStocks[payload.stockName] -= sellLoad;
+                if (state.yourStocks[payload.stockName] === 0) {
+                    delete state.yourStocks[payload.stockName];
+                }
+                state.funds += value;
             }
-            state.funds += value;
         },
         randomizePrices: state => {
             for (const prop in state.stocks) {
